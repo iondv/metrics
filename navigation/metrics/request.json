@@ -1,0 +1,15 @@
+{
+  "code": "requests",
+  "caption": "Requests",
+  "type": 1,
+  "orderNumber": 10,
+  "title": "",
+  "hint": "",
+  "classname": "request",
+  "container": "",
+  "collection": "",
+  "url": "",
+  "conditions": [],
+  "sorting": [],
+  "pathChains": []
+}

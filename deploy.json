@@ -1,0 +1,9 @@
+{
+  "namespace": "metrics",
+  "deployer": "built-in",
+  "globals": {
+    "pageEndContent": "<div><img src=\"https://mc.iondv.com/watch/github/app/metrics\" style=\"position:absolute; left:-9999px;\" height=1 width=1 alt=\"iondv-metrics\" /></div>"
+  },
+  "modules": {
+  }
+}

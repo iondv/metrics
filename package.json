@@ -1,0 +1,22 @@
+{
+  "name": "metrics",
+  "description": "Metrics is a IONDV. Framework application",
+  "version": "0.0.1",
+  "homepage": "https://github.com/iondv/metrics",
+  "bugs": {
+    "url": "https://github.com/iondv/metrics/issues"
+  },
+  "engines": {
+    "ion": "3.0.0"
+  },
+  "license": "Apache License 2.0",
+  "author": "akumidv",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iondv/metrics.git"
+  },
+  "ionModulesDependencies": {
+    "watch": "0.0.1",
+    "registry": "3.0.0"
+  }
+}
