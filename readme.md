@@ -22,12 +22,31 @@ Typical use:
 ```json
 {
   "globals": {
-    "pageEndContent": "<div><img src=\"https://your.domain/watch/METRIC-IDENTIFICATOR\" style=\"position:absolute; left:-9999px;\" height=1 width=1 alt=\"iondv-metrics\" /></div>"
+    "pageEndContent": "<div><img src=\"http://your.domain/watch/METRIC-IDENTIFICATOR\" style=\"position:absolute; left:-9999px;\" height=1 width=1 alt=\"iondv-metrics\" /></div>"
   }
 }
 ```
 * open html page or IONDV application, for example http://localhost:8888 for send metrics information about this page visit
-* open https://your.domain/registry to view saved metrics
+* open http://your.domain/registry to view saved metrics
+
+
+Typical params for docker run
+```bash
+docker run  --name watch \
+            -v /iondv-metrics/config/setup.ini:/var/www/config/setup.ini:ro \
+            --port 80:8888 \
+            --health-cmd="curl -f http://localhost:8888/watch" \
+            --health-interval=1m30s \
+            --health-timeout=10s \
+            --health-retries=5 \
+            --health-start-period=40s \
+            --restart unless-stopped \
+            -d \
+            iondv-metrics
+```
+
+NB Request adress http://your.domain/watch didn't tracking, and used for check docker health status
+
 
 --------------------------------------------------------------------------  
 

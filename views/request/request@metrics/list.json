@@ -2,7 +2,7 @@
   "columns": [
     {
       "property": "datetimeTracker",
-      "caption": "Datetime tracker",
+      "caption": "Datetime stamp",
       "type": 5,
       "sorted": true,
       "size": 2,
@@ -32,6 +32,26 @@
       "type": 1,
       "hint": "",
       "orderNumber": 10,
+      "size": null,
+      "maskName": "",
+      "mask": "",
+      "mode": 0,
+      "required": false,
+      "readonly": false,
+      "sorted": false,
+      "selectionPaginated": false,
+      "visibility": "",
+      "enablement": "",
+      "obligation": "",
+      "historyDisplayMode": 0,
+      "tags": ""
+    },
+    {
+      "property": "referrer",
+      "caption": "Referrer",
+      "type": 1,
+      "hint": "",
+      "orderNumber": 15,
       "size": null,
       "maskName": "",
       "mask": "",
@@ -91,7 +111,18 @@
   "historyDisplayMode": 0,
   "actions": null,
   "collectionFilters": null,
-  "commands": null,
+  "commands": [
+    {
+      "id": "EDIT",
+      "caption": "View",
+      "visibilityCondition": null,
+      "enableCondition": null,
+      "needSelectedItem": true,
+      "signBefore": false,
+      "signAfter": false,
+      "isBulk": false
+    }
+  ],
   "version": "",
   "pageSize": 10,
   "allowSearch": false,

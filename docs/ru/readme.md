@@ -23,12 +23,30 @@ This page in [English](/readme.md)
 ```json
 {
   "globals": {
-    "pageEndContent": "<div><img src=\"https://your.domain/watch/METRIC-IDENTIFICATOR\" style=\"position:absolute; left:-9999px;\" height=1 width=1 alt=\"iondv-metrics\" /></div>"
+    "pageEndContent": "<div><img src=\"http://your.domain/watch/METRIC-IDENTIFICATOR\" style=\"position:absolute; left:-9999px;\" height=1 width=1 alt=\"iondv-metrics\" /></div>"
   }
 }
 ```
 * откройте html страничку или IONDV приложение, например запущенное локально по адресу http://localhost:8888 для отправки метрик посещения страницы
-* откройте ваше приложение https://your.domain/registry для просмотра записанных метрик
+* откройте ваше приложение http://your.domain/registry для просмотра записанных метрик
+
+
+Типовые параметры для запуска docker
+```bash
+docker run  --name watch \
+            -v /iondv-metrics/config/setup.ini:/var/www/config/setup.ini:ro \
+            --port 80:8888 \
+            --health-cmd="curl -f http://localhost:8888/watch" \
+            --health-interval=1m30s \
+            --health-timeout=10s \
+            --health-retries=5 \
+            --health-start-period=40s \
+            --restart unless-stopped \
+            -d \
+            iondv-metrics
+```
+
+NB Обратите внимание, что адресс `http://your.domain/watch` не регистрируется трекером и используется для диагности статуса health в докере.
 
 
 --------------------------------------------------------------------------  
