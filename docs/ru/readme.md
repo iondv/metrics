@@ -30,23 +30,41 @@ This page in [English](/readme.md)
 * откройте html страничку или IONDV приложение, например запущенное локально по адресу http://localhost:8888 для отправки метрик посещения страницы
 * откройте ваше приложение http://your.domain/registry для просмотра записанных метрик
 
+### Docker
+Следуйте следующим инструкциям для запуска контейнера с приложением:
 
-Типовые параметры для запуска docker
+1. Запустите СУБД Mongodb
+
 ```bash
-docker run  --name watch \
-            -v /iondv-metrics/config/setup.ini:/var/www/config/setup.ini:ro \
-            --port 80:8888 \
-            --health-cmd="curl -f http://localhost:8888/watch" \
-            --health-interval=1m30s \
-            --health-timeout=10s \
-            --health-retries=5 \
-            --health-start-period=40s \
+docker run  --name mongodb \
+            -v mongodb_data:/data/db \
+            --port 27017:27017 \
             --restart unless-stopped \
             -d \
-            iondv-metrics
+            mongo
 ```
 
-NB Обратите внимание, что адресс `http://your.domain/watch` не регистрируется трекером и используется для диагности статуса health в докере.
+2. Разверните метаданные приложения **IONDV. Metrics**
+```bash
+docker run --entrypoint=""  --rm iondv-metrics node bin/import --src ./applications/metrics --ns metrics
+docker run --entrypoint=""  --rm iondv-metrics node bin/setup metrics --reset
+```
+
+3. Создайте пользователя `admin` с паролем `123` и ролью`admin`
+```
+docker run --entrypoint=""  --rm iondv-metrics node bin/adduser --name admin --pwd 123
+docker run --entrypoint=""  --rm iondv-metrics node bin/acl --u admin@local --role admin --p full
+```
+
+4. Запустите приложение
+```
+docker run -d --ports 80:8888 iondv-metrics
+```
+
+Откройте в браузере `http://localhost/watch`. Вы получите результирующий статус `OK`. Адрес в нотации `http://your.domain/watch` не отслеживается и служит для проверки состояния докер контейнера.
+Откройте в браузере `http://localhost/watch/test`. Результатом будет однопиксельная картинка PNG, а результат запроса будет сохранен и доступен через модуль [**IONDV. Registry**](https://github.com/iondv/registry).
+Откройте в браузере `http://localhost/registry` и после авторизации вы увидите список осуществленных запросов с параметрами запросов по адресу `http://localhost/watch/**`.
+
 
 
 --------------------------------------------------------------------------  
