@@ -35,8 +35,6 @@ This page in [English](/readme.md)
 
 1. Запустите СУБД Mongodb
 
-1. Запустите СУБД Mongodb
-
 ```bash
 docker run  --name mongodb \
             -v mongodb_data:/data/db \
