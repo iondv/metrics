@@ -35,10 +35,12 @@ This page in [English](/readme.md)
 
 1. Запустите СУБД Mongodb
 
+1. Запустите СУБД Mongodb
+
 ```bash
 docker run  --name mongodb \
             -v mongodb_data:/data/db \
-            --port 27017:27017 \
+            -p 27017:27017 \
             --restart unless-stopped \
             -d \
             mongo
@@ -46,19 +48,19 @@ docker run  --name mongodb \
 
 2. Разверните метаданные приложения **IONDV. Metrics**
 ```bash
-docker run --entrypoint=""  --rm iondv-metrics node bin/import --src ./applications/metrics --ns metrics
-docker run --entrypoint=""  --rm iondv-metrics node bin/setup metrics --reset
+docker run --entrypoint="" --link mongodb --rm iondv/metrics node bin/import --src ./applications/metrics --ns metrics
+docker run --entrypoint="" --link mongodb --rm iondv/metrics node bin/setup metrics --reset
 ```
 
 3. Создайте пользователя `admin` с паролем `123` и ролью`admin`
 ```
-docker run --entrypoint=""  --rm iondv-metrics node bin/adduser --name admin --pwd 123
-docker run --entrypoint=""  --rm iondv-metrics node bin/acl --u admin@local --role admin --p full
+docker run --entrypoint="" --link mongodb --rm iondv/metrics node bin/adduser --name admin --pwd 123
+docker run --entrypoint="" --link mongodb --rm iondv/metrics node bin/acl --u admin@local --role admin --p full
 ```
 
 4. Запустите приложение
 ```
-docker run -d --ports 80:8888 iondv-metrics
+docker run -d -p 80:8888 --name metrics --link mongodb iondv/metrics
 ```
 
 Откройте в браузере `http://localhost/watch`. Вы получите результирующий статус `OK`. Адрес в нотации `http://your.domain/watch` не отслеживается и служит для проверки состояния докер контейнера.
